@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import staffModel from "@/be/models/staff.model";
-import { connectMongoDb } from "@/be/db/db";
+import staffModel from "@/server/models/staff.model";
+import { connectMongoDb } from "@/server/db/db";
 
 connectMongoDb();
 

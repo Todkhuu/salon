@@ -1,44 +1,53 @@
+import {
+  AppointmentStatusEnum,
+  CategoryEnum,
+  ServiceEnum,
+  StaffRoleEnum,
+} from "@/server/constants";
 import { Schema } from "mongoose";
 
 export interface StaffType {
+  _id: Schema.Types.ObjectId;
+  email: string;
+  password: string;
+  role: StaffRoleEnum;
   name: string;
   experience: number;
-  bio?: string;
-  rating?: number;
-  image?: string;
-  services: string[];
-  workDays: string[];
-  workHours: {
-    start: string;
-    end: string;
-    breakTime: {
-      start: string;
-      end: string;
-    };
-  };
+  about: string;
+  rating: number;
+  image: string;
+  category: CategoryEnum;
+  availableTimes: Date[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export interface ServiceType {
-  name: string;
-  price: number;
-  duration: number;
-  description?: string;
+export interface UserType {
+  _id: Schema.Types.ObjectId;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface AppointmentType {
-  customerName: string;
-  phoneNumber: string;
-  staffId: Schema.Types.ObjectId;
-  service: string;
-  date: string;
-  time: string;
-  status?: "pending" | "confirmed" | "cancelled";
-  paid?: boolean;
+  _id: Schema.Types.ObjectId;
+  userId: UserType;
+  staffId: StaffType;
+  date: Date;
+  status: AppointmentStatusEnum;
+  paid: boolean;
+  service: ServiceEnum;
+  price: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface FeedbackType {
-  staffId: Schema.Types.ObjectId;
-  customerName: string;
+  _id: Schema.Types.ObjectId;
+  userId: UserType;
+  staffId: StaffType;
   rating: number;
   createdAt?: Date;
 }
