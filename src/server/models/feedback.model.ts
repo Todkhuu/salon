@@ -1,7 +1,7 @@
 import { FeedbackType } from "@/utils/types";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { model, Model, models, Schema } from "mongoose";
 
-const FeedbackSchema: Schema = new Schema(
+const FeedbackSchema: Schema = new Schema<FeedbackType>(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -18,4 +18,6 @@ const FeedbackSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.model<FeedbackType>("feedback", FeedbackSchema);
+export const FeedbackModel: Model<FeedbackType> =
+  models["Feedback"] || model<FeedbackType>("Feedback", FeedbackSchema);
+// export default mongoose.model<FeedbackType>("feedback", FeedbackSchema);

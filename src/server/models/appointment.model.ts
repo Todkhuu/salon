@@ -1,8 +1,8 @@
 import { AppointmentType } from "@/utils/types";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { model, Model, models, Schema } from "mongoose";
 import { AppointmentStatusEnum, ServiceEnum } from "../constants";
 
-const AppointmentSchema: Schema = new Schema(
+const AppointmentSchema: Schema = new Schema<AppointmentType>(
   {
     userId: {
       type: Schema.Types.ObjectId,
@@ -32,7 +32,11 @@ const AppointmentSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.model<AppointmentType>(
-  "appointment",
-  AppointmentSchema
-);
+export const AppointmentModel: Model<AppointmentType> =
+  models["Appointment"] ||
+  model<AppointmentType>("Appointment", AppointmentSchema);
+
+// export default mongoose.model<AppointmentType>(
+//   "Appointment",
+//   AppointmentSchema
+// );

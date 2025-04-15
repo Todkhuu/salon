@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import staffModel from "@/server/models/staff.model";
+import { StaffModel } from "@/server/models";
 import { connectMongoDb } from "@/server/db/db";
 
 connectMongoDb();
 
 export async function GET(req: NextRequest) {
   try {
-    const staff = await staffModel.find();
+    const staff = await StaffModel.find();
     return NextResponse.json({ message: "All staffs", data: staff });
   } catch (err) {
     return NextResponse.json(
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     const staffData = await req.json();
     // console.log("💡 POST received data:", staffData);
 
-    const newStaff = await staffModel.create(staffData);
+    const newStaff = await StaffModel.create(staffData);
     // console.log("✅ Created staff:", newStaff);
 
     return NextResponse.json(
@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (err) {
+    console.log("error", err);
     return NextResponse.json(
       { message: "error in staff", err },
       { status: 500 }

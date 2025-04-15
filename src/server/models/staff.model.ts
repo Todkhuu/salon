@@ -1,8 +1,8 @@
 import { StaffType } from "@/utils/types";
-import mongoose, { Schema } from "mongoose";
+import mongoose, { model, Model, models, Schema } from "mongoose";
 import { CategoryEnum, StaffRoleEnum } from "../constants";
 
-const StaffSchema: Schema = new Schema(
+const StaffSchema: Schema = new Schema<StaffType>(
   {
     email: { type: String, unique: true },
     password: { type: String, required: true, select: false },
@@ -27,5 +27,7 @@ const StaffSchema: Schema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.staff ||
-  mongoose.model<StaffType>("Staffs", StaffSchema);
+export const StaffModel: Model<StaffType> =
+  models["Staffs"] || model<StaffType>("Staffs", StaffSchema);
+// export default mongoose.models.staff ||
+//   mongoose.model<StaffType>("Staffs", StaffSchema);
